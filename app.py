@@ -115,5 +115,3 @@ def parse_stagedir(element):
     dir = element.xpath("./dir")[0].text
     return {'type': 'stagedir', 'stage_num': stagedir_num, 'dir': dir}
 
-
-app.run()
