@@ -58,9 +58,9 @@ def submit_annotation(playname):
         f.write(ET.tostring(dom, pretty_print=True))
     for child in dom.xpath("//act"):
         acts.append(parse_act(child))
-        
+
     return jsonify({
-        'annotations': annotations,
+        'acts': acts
     })
 
 
