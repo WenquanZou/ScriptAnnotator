@@ -42,6 +42,19 @@ def get_play(playname):
     })
 
 
+@app.route('/act/<playname>/<actnum>', methods=['GET'])
+def get_play(playname, actnum):
+    script_dir = os.path.abspath("shakespeare_scripts")
+    xml_filename = os.path.join(script_dir, playname)
+
+    dom = ET.parse(xml_filename)
+    updated_act = dom.xpath(f"//act[@actnum={actnum}]")
+    act = parse_act(updated_act)
+    return jsonify({
+        'act': act,
+        'actnum': actnum
+    })
+
 @app.route('/submit/<playname>', methods=['POST'])
 def submit_annotation(playname):
     annotations = literal_eval(request.data.decode('utf8'))
