@@ -1,5 +1,3 @@
-import json
-
 import flask
 from flask import request, jsonify
 from ast import literal_eval
@@ -63,7 +61,7 @@ def submit_annotation(playname):
     
     dom = ET.parse(xml_filename)
     for annotation in annotations:
-        specific_line = dom.xpath(f"//line[@globalnumber={annotation['lineStart']}]")
+        specific_line = dom.xpath(f"//line[@globalnumber > {annotation['lineStart']} and @globalnumber < {annotation['lineEnd']}]")
         specific_line[0].attrib['annotation'] = annotation['actionVerb']
     acts = []
     
