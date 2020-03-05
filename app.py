@@ -41,7 +41,7 @@ def get_play(playname):
 
 
 @app.route('/act/<playname>/<actnum>', methods=['GET'])
-def get_play(playname, actnum):
+def get_play_act(playname, actnum):
     script_dir = os.path.abspath("shakespeare_scripts")
     xml_filename = os.path.join(script_dir, playname)
 
