@@ -1,5 +1,5 @@
 import flask
-from flask import request, jsonify
+from flask import request, jsonify, send_from_directory, abort
 from ast import literal_eval
 from flask_cors import CORS, cross_origin
 import os
@@ -75,6 +75,14 @@ def submit_annotation(playname):
     return jsonify({
         'acts': acts
     })
+
+
+@app.route("/download/<playname>")
+def get_image(playname):
+    try:
+        return send_from_directory(os.path.abspath("shakespeare_scripts"), filename=playname, as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
 
 
 def parse_act(element):
