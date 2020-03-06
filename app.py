@@ -53,6 +53,7 @@ def get_play_act(playname, actnum):
         'actnum': actnum
     })
 
+
 @app.route('/submit/<playname>', methods=['POST'])
 def submit_annotation(playname):
     annotations = literal_eval(request.data.decode('utf8'))
@@ -61,8 +62,9 @@ def submit_annotation(playname):
     
     dom = ET.parse(xml_filename)
     for annotation in annotations:
-        specific_line = dom.xpath(f"//line[@globalnumber > {annotation['lineStart']} and @globalnumber < {annotation['lineEnd']}]")
-        specific_line[0].attrib['annotation'] = annotation['actionVerb']
+        specific_lines = dom.xpath(f"//line[@globalnumber > {annotation['lineStart']} and @globalnumber < {annotation['lineEnd']}]")
+        for specific_line in specific_lines:
+            specific_line.attrib['annotation'] = annotation['actionVerb']
     acts = []
     
     with open(xml_filename, 'wb') as f:
