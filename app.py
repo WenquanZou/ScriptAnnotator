@@ -62,7 +62,7 @@ def submit_annotation(playname):
     
     dom = ET.parse(xml_filename)
     for annotation in annotations:
-        specific_lines = dom.xpath(f"//line[@globalnumber > {annotation['lineStart']} and @globalnumber < {annotation['lineEnd']}]")
+        specific_lines = dom.xpath(f"//line[@globalnumber >= {annotation['lineStart']} and @globalnumber <= {annotation['lineEnd']}]")
         for specific_line in specific_lines:
             specific_line.attrib['annotation'] = annotation['actionVerb']
     acts = []
