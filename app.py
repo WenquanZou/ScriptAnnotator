@@ -24,9 +24,9 @@ def get_plays():
     })
 
 
-@app.route('/play/<playname>', methods=['GET'])
-def get_play(playname):
-    script_dir = os.path.abspath("shakespeare_scripts")
+@app.route('/play/<directory>/<playname>', methods=['GET'])
+def get_play(directory, playname):
+    script_dir = os.path.abspath(os.path.join(directory, "shakespeare_scripts"))
     xml_filename = os.path.join(script_dir, playname)
     
     dom = ET.parse(xml_filename)
@@ -40,9 +40,10 @@ def get_play(playname):
     })
 
 
-@app.route('/act/<playname>/<actnum>', methods=['GET'])
-def get_play_act(playname, actnum):
-    script_dir = os.path.abspath("shakespeare_scripts")
+@app.route('/act/<directory>/<playname>/<actnum>', methods=['GET'])
+def get_play_act(directory, playname, actnum):
+    script_dir = os.path.abspath(os.path.join(directory, "shakespeare_scripts"))
+
     xml_filename = os.path.join(script_dir, playname)
 
     dom = ET.parse(xml_filename)
@@ -54,10 +55,10 @@ def get_play_act(playname, actnum):
     })
 
 
-@app.route('/submit/<playname>', methods=['POST'])
-def submit_annotation(playname):
+@app.route('/submit/<directory>/<playname>', methods=['POST'])
+def submit_annotation(directory, playname):
     annotations = literal_eval(request.data.decode('utf8'))
-    script_dir = os.path.abspath("shakespeare_scripts")
+    script_dir = os.path.abspath(os.path.join(directory, "shakespeare_scripts"))
     xml_filename = os.path.join(script_dir, playname)
     
     dom = ET.parse(xml_filename)
@@ -77,10 +78,11 @@ def submit_annotation(playname):
     })
 
 
-@app.route("/download/<playname>")
-def get_image(playname):
+@app.route("/download/<directory>/<playname>")
+def get_image(directory, playname):
+    script_dir = os.path.abspath(os.path.join(directory, "shakespeare_scripts"))
     try:
-        return send_from_directory(os.path.abspath("shakespeare_scripts"), filename=playname, as_attachment=True)
+        return send_from_directory(script_dir, filename=playname, as_attachment=True)
     except FileNotFoundError:
         abort(404)
 
