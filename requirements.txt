@@ -26,7 +26,7 @@ docutils==0.15.2
 entrypoints==0.3
 filelock==3.0.12
 Flask==1.0.2
-Flask-Cors==3.0.7
+Flask-Cors==3.0.9
 gast==0.3.3
 GPUtil==1.4.0
 grpcio==1.27.2
