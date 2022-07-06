@@ -31,7 +31,7 @@ gast==0.3.3
 GPUtil==1.4.0
 grpcio==1.27.2
 gunicorn==20.0.4
-html5lib==0.9999999
+html5lib==0.999999999
 idna==2.7
 ipykernel==5.1.3
 ipython==7.11.1
